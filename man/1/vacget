@@ -1,0 +1,98 @@
+.TH VACGET 1
+.SH NAME
+vacget, vacput \- venti archive utilities
+.SH SYNOPSIS
+.B vacget
+[
+.B -Dvpt
+] [
+.B -a
+.I addr
+]
+.I vacfile
+.br
+.B vacput
+[
+.B -Dqrv
+] [
+.B -a
+.I addr
+] [
+.B -b
+.I blocksize
+] [
+.B -d
+.I vacfile
+] [
+.B -n
+.I name
+]
+.I path ...
+.SH DESCRIPTION
+.I Vacget
+retrieves a venti archive from a venti server to the current working directory.
+.PP
+.I Vacput
+writes a venti archive to a venti server.  The
+.I paths
+are walked recursively and all files and directories written to the archive.  Temporary files, i.e. those with the
+.B DMTMP
+bit set, are skipped.  With
+.B -d
+a base archive can be specified.  Files that have not changed are assumed to be present in venti and included in the new archive without writing their contents to venti.  Specify
+.B -q
+to allow vacput to only write new data in append-only files to venti.
+.TP
+.BI -d " vacfile"
+The score in
+.I vacfile
+is used as base archive while writing.  Only the contents of files that have been modified are written to venti before inclusion in the new archive.  Only for vacput.
+.TP
+.B -q
+Use heuristics (append-only mode, qid path, qid version, modification time and file size) to determine whether a part of the file is already in venti and does not have to be written again.  Only for vacput and in conjunction with
+.BR -d .
+.TP
+.B -D
+Print debug messages.
+.TP
+.B -p
+Try to preserve file permissions and owner/group.  Only for vacget.
+.TP
+.B -v
+Be verbose.  Prints file names to standard error as they are being retrieved or written.  Vacput also writes the number of bytes and blocks written and read.
+.TP
+.B -t
+List files, do not write them.  Only for vacget.
+.TP
+.B -r
+Do not use fixed sized blocks, for use Rabin fingerprinting for determining block boundaries.  Only for vacput.
+.TP
+.BI -a " address"
+Dial
+.I address
+instead of the default venti server.
+.TP
+.BI -b " blocksize"
+Use blocks with
+.I blocksize
+bytes instead of the default 8192 byte blocks.  Only for vacput.
+.TP
+.BI -n " name"
+Use
+.I name
+as the name in the root block.  Only for vacput.
+.SH SOURCE
+.B /appl/cmd/vacget.b
+.br
+.B /appl/cmd/vacput.b
+.SH SEE ALSO
+.IR venti (1),
+.IR vacget (1),
+.IR vcache (1),
+.IR venti (2),
+.IR vacfs (4),
+.IR ventisrv (8)
+.SH BUGS
+These tools need more testing.
+.br
+The vac data structures used to write archives with variable block sizes may change.

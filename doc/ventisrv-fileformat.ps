@@ -1,0 +1,2153 @@
+%!PS-Adobe-2.0
+%%Version: 0.1
+%%DocumentFonts: (atend)
+%%Pages: (atend)
+%%EndComments
+%
+% Version 3.3.2 prologue for troff files.
+%
+
+/#copies 1 store
+/aspectratio 1 def
+/formsperpage 1 def
+/landscape false def
+/linewidth .3 def
+/magnification 1 def
+/margin 0 def
+/orientation 0 def
+/resolution 720 def
+/rotation 1 def
+/xoffset 0 def
+/yoffset 0 def
+
+/roundpage true def
+/useclippath true def
+/pagebbox [0 0 612 792] def
+
+/R  /Times-Roman def
+/I  /Times-Italic def
+/B  /Times-Bold def
+/BI /Times-BoldItalic def
+/H  /Helvetica def
+/HI /Helvetica-Oblique def
+/HB /Helvetica-Bold def
+/HX /Helvetica-BoldOblique def
+/CW /Courier def
+/CO /Courier def
+/CI /Courier-Oblique def
+/CB /Courier-Bold def
+/CX /Courier-BoldOblique def
+/PA /Palatino-Roman def
+/PI /Palatino-Italic def
+/PB /Palatino-Bold def
+/PX /Palatino-BoldItalic def
+/Hr /Helvetica-Narrow def
+/Hi /Helvetica-Narrow-Oblique def
+/Hb /Helvetica-Narrow-Bold def
+/Hx /Helvetica-Narrow-BoldOblique def
+/KR /Bookman-Light def
+/KI /Bookman-LightItalic def
+/KB /Bookman-Demi def
+/KX /Bookman-DemiItalic def
+/AR /AvantGarde-Book def
+/AI /AvantGarde-BookOblique def
+/AB /AvantGarde-Demi def
+/AX /AvantGarde-DemiOblique def
+/NR /NewCenturySchlbk-Roman def
+/NI /NewCenturySchlbk-Italic def
+/NB /NewCenturySchlbk-Bold def
+/NX /NewCenturySchlbk-BoldItalic def
+/ZD /ZapfDingbats def
+/ZI /ZapfChancery-MediumItalic def
+/S  /S def
+/S1 /S1 def
+/GR /Symbol def
+
+/inch {72 mul} bind def
+/min {2 copy gt {exch} if pop} bind def
+
+/setup {
+	counttomark 2 idiv {def} repeat pop
+
+	landscape {/orientation 90 orientation add def} if
+	/scaling 72 resolution div def
+	linewidth setlinewidth
+	1 setlinecap
+
+	pagedimensions
+	xcenter ycenter translate
+	orientation rotation mul rotate
+	width 2 div neg height 2 div translate
+	xoffset inch yoffset inch neg translate
+	margin 2 div dup neg translate
+	magnification dup aspectratio mul scale
+	scaling scaling scale
+
+	addmetrics
+	0 0 moveto
+} def
+
+/pagedimensions {
+	useclippath userdict /gotpagebbox known not and {
+		/pagebbox [clippath pathbbox newpath] def
+		roundpage currentdict /roundpagebbox known and {roundpagebbox} if
+	} if
+	pagebbox aload pop
+	4 -1 roll exch 4 1 roll 4 copy
+	landscape {4 2 roll} if
+	sub /width exch def
+	sub /height exch def
+	add 2 div /xcenter exch def
+	add 2 div /ycenter exch def
+	userdict /gotpagebbox true put
+} def
+
+/addmetrics {
+	/Symbol /S null Sdefs cf
+	/Times-Roman /S1 StandardEncoding dup length array copy S1defs cf
+} def
+
+/pagesetup {
+	/page exch def
+	currentdict /pagedict known currentdict page known and {
+		page load pagedict exch get cvx exec
+	} if
+} def
+
+/decodingdefs [
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg /y exch def counttomark 2 idiv {y moveto show} repeat}
+	{neg moveto {2 index stringwidth pop sub exch div 0 32 4 -1 roll widthshow} repeat}
+	{neg moveto {spacewidth sub 0.0 32 4 -1 roll widthshow} repeat}
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg setfunnytext}
+] def
+
+/setdecoding {/t decodingdefs 3 -1 roll get bind def} bind def
+
+/w {neg moveto show} bind def
+/m {neg dup /y exch def moveto} bind def
+/done {/lastpage where {pop lastpage} if} def
+
+/f {
+	dup /font exch def findfont exch
+	dup /ptsize exch def scaling div dup /size exch def scalefont setfont
+	linewidth ptsize mul scaling 10 mul div setlinewidth
+	/spacewidth ( ) stringwidth pop def
+} bind def
+
+/changefont {
+	/fontheight exch def
+	/fontslant exch def
+	currentfont [
+		1 0
+		fontheight ptsize div fontslant sin mul fontslant cos div
+		fontheight ptsize div
+		0 0
+	] makefont setfont
+} bind def
+
+/sf {f} bind def
+
+/cf {
+	dup length 2 idiv
+	/entries exch def
+	/chtab exch def
+	/newencoding exch def
+	/newfont exch def
+
+	findfont dup length 1 add dict
+	/newdict exch def
+	{1 index /FID ne {newdict 3 1 roll put}{pop pop} ifelse} forall
+
+	newencoding type /arraytype eq {newdict /Encoding newencoding put} if
+
+	newdict /Metrics entries dict put
+	newdict /Metrics get
+	begin
+		chtab aload pop
+		1 1 entries {pop def} for
+		newfont newdict definefont pop
+	end
+} bind def
+
+%
+% A few arrays used to adjust reference points and character widths in some
+% of the printer resident fonts. If square roots are too high try changing
+% the lines describing /radical and /radicalex to,
+%
+%	/radical	[0 -75 550 0]
+%	/radicalex	[-50 -75 500 0]
+%
+% Move braceleftbt a bit - default PostScript character is off a bit.
+%
+
+/Sdefs [
+	/bracketlefttp		[201 500]
+	/bracketleftbt		[201 500]
+	/bracketrighttp		[-81 380]
+	/bracketrightbt		[-83 380]
+	/braceleftbt		[203 490]
+	/bracketrightex		[220 -125 500 0]
+	/radical		[0 0 550 0]
+	/radicalex		[-50 0 500 0]
+	/parenleftex		[-20 -170 0 0]
+	/integral		[100 -50 500 0]
+	/infinity		[10 -75 730 0]
+] def
+
+/S1defs [
+	/underscore		[0 80 500 0]
+	/endash			[7 90 650 0]
+] def
+%
+% Tries to round clipping path dimensions, as stored in array pagebbox, so they
+% match one of the known sizes in the papersizes array. Lower left coordinates
+% are always set to 0.
+%
+
+/roundpagebbox {
+    7 dict begin
+	/papersizes [8.5 inch 11 inch 14 inch 17 inch] def
+
+	/mappapersize {
+		/val exch def
+		/slop .5 inch def
+		/diff slop def
+		/j 0 def
+		0 1 papersizes length 1 sub {
+			/i exch def
+			papersizes i get val sub abs
+			dup diff le {/diff exch def /j i def} {pop} ifelse
+		} for
+		diff slop lt {papersizes j get} {val} ifelse
+	} def
+
+	pagebbox 0 0 put
+	pagebbox 1 0 put
+	pagebbox dup 2 get mappapersize 2 exch put
+	pagebbox dup 3 get mappapersize 3 exch put
+    end
+} bind def
+
+%%EndProlog
+%%BeginSetup
+mark
+%
+% Encoding vector and redefinition of findfont for the ISO Latin1 standard.
+% The 18 characters missing from ROM based fonts on older printers are noted
+% below.
+%
+
+/ISOLatin1Encoding [
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/space
+	/exclam
+	/quotedbl
+	/numbersign
+	/dollar
+	/percent
+	/ampersand
+	/quoteright
+	/parenleft
+	/parenright
+	/asterisk
+	/plus
+	/comma
+	/minus
+	/period
+	/slash
+	/zero
+	/one
+	/two
+	/three
+	/four
+	/five
+	/six
+	/seven
+	/eight
+	/nine
+	/colon
+	/semicolon
+	/less
+	/equal
+	/greater
+	/question
+	/at
+	/A
+	/B
+	/C
+	/D
+	/E
+	/F
+	/G
+	/H
+	/I
+	/J
+	/K
+	/L
+	/M
+	/N
+	/O
+	/P
+	/Q
+	/R
+	/S
+	/T
+	/U
+	/V
+	/W
+	/X
+	/Y
+	/Z
+	/bracketleft
+	/backslash
+	/bracketright
+	/asciicircum
+	/underscore
+	/quoteleft
+	/a
+	/b
+	/c
+	/d
+	/e
+	/f
+	/g
+	/h
+	/i
+	/j
+	/k
+	/l
+	/m
+	/n
+	/o
+	/p
+	/q
+	/r
+	/s
+	/t
+	/u
+	/v
+	/w
+	/x
+	/y
+	/z
+	/braceleft
+	/bar
+	/braceright
+	/asciitilde
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/.notdef
+	/dotlessi
+	/grave
+	/acute
+	/circumflex
+	/tilde
+	/macron
+	/breve
+	/dotaccent
+	/dieresis
+	/.notdef
+	/ring
+	/cedilla
+	/.notdef
+	/hungarumlaut
+	/ogonek
+	/caron
+	/space
+	/exclamdown
+	/cent
+	/sterling
+	/currency
+	/yen
+	/brokenbar		% missing
+	/section
+	/dieresis
+	/copyright
+	/ordfeminine
+	/guillemotleft
+	/logicalnot
+	/hyphen
+	/registered
+	/macron
+	/degree			% missing
+	/plusminus		% missing
+	/twosuperior		% missing
+	/threesuperior		% missing
+	/acute
+	/mu			% missing
+	/paragraph
+	/periodcentered
+	/cedilla
+	/onesuperior		% missing
+	/ordmasculine
+	/guillemotright
+	/onequarter		% missing
+	/onehalf		% missing
+	/threequarters		% missing
+	/questiondown
+	/Agrave
+	/Aacute
+	/Acircumflex
+	/Atilde
+	/Adieresis
+	/Aring
+	/AE
+	/Ccedilla
+	/Egrave
+	/Eacute
+	/Ecircumflex
+	/Edieresis
+	/Igrave
+	/Iacute
+	/Icircumflex
+	/Idieresis
+	/Eth			% missing
+	/Ntilde
+	/Ograve
+	/Oacute
+	/Ocircumflex
+	/Otilde
+	/Odieresis
+	/multiply		% missing
+	/Oslash
+	/Ugrave
+	/Uacute
+	/Ucircumflex
+	/Udieresis
+	/Yacute			% missing
+	/Thorn			% missing
+	/germandbls
+	/agrave
+	/aacute
+	/acircumflex
+	/atilde
+	/adieresis
+	/aring
+	/ae
+	/ccedilla
+	/egrave
+	/eacute
+	/ecircumflex
+	/edieresis
+	/igrave
+	/iacute
+	/icircumflex
+	/idieresis
+	/eth			% missing
+	/ntilde
+	/ograve
+	/oacute
+	/ocircumflex
+	/otilde
+	/odieresis
+	/divide			% missing
+	/oslash
+	/ugrave
+	/uacute
+	/ucircumflex
+	/udieresis
+	/yacute			% missing
+	/thorn			% missing
+	/ydieresis
+] def
+
+/NewFontDirectory FontDirectory maxlength dict def
+
+%
+% Apparently no guarantee findfont is defined in systemdict so the obvious
+%
+%	systemdict /findfont get exec
+%
+% can generate an error. So far the only exception is a VT600 (version 48.0).
+%
+
+userdict /@RealFindfont known not {
+	userdict begin
+		/@RealFindfont systemdict begin /findfont load end def
+	end
+} if
+
+/findfont {
+	dup NewFontDirectory exch known not {
+		dup
+		%dup systemdict /findfont get exec	% not always in systemdict
+		dup userdict /@RealFindfont get exec
+		dup /Encoding get StandardEncoding eq {
+			dup length dict begin
+				{1 index /FID ne {def}{pop pop} ifelse} forall
+				/Encoding ISOLatin1Encoding def
+				currentdict
+			end
+			/DummyFontName exch definefont
+		} if
+		NewFontDirectory 3 1 roll put
+	} if
+	NewFontDirectory exch get
+} bind def
+
+%%Patch from lp
+%%EndPatch from lp
+
+setup
+%%EndSetup
+%%Page: 1 1
+/saveobj save def
+mark
+1 pagesetup
+12 /Times-Bold f
+(Ventisrv file) 2349 1230 w
+(formats) 3010 1230 w
+10 /Times-Italic f
+(Mechiel Lukkien) 2549 1470 w
+(mechiel@xs4all.nl) 2508 1590 w
+10 /Times-Roman f
+(Google Summer of Code, for the Plan 9/Inferno project) 1772 1770 w
+(August 2007) 2623 1890 w
+10 /Times-Italic f
+(ABSTRACT) 2643 2270 w
+10 /Times-Roman f
+(This) 1330 2530 w
+(document) 1537 2530 w
+(describes) 1960 2530 w
+(the) 2360 2530 w
+(file) 2511 2530 w
+(format) 2673 2530 w
+(used) 2968 2530 w
+(by) 3180 2530 w
+10 /Times-Italic f
+(ventisrv) 3309 2530 w
+10 /Times-Roman f
+(for) 3654 2530 w
+(its) 3800 2530 w
+(data) 3925 2530 w
+(and) 4121 2530 w
+(index) 4295 2530 w
+(file) 4547 2530 w
+(and) 1080 2650 w
+(also) 1253 2650 w
+(explains) 1443 2650 w
+(design) 1805 2650 w
+(decisions.) 2095 2650 w
+(It) 2546 2650 w
+(should) 2636 2650 w
+(provide) 2932 2650 w
+(enough) 3266 2650 w
+(insight) 3589 2650 w
+(in) 3891 2650 w
+(the) 3997 2650 w
+(file) 4147 2650 w
+(format) 4308 2650 w
+(to) 4602 2650 w
+(help with data recovery.) 1080 2770 w
+10 /Times-Bold f
+(Introduction) 720 3130 w
+10 /Times-Roman f
+(At) 970 3286 w
+(startup,) 1096 3286 w
+10 /Times-Italic f
+(ventisrv) 1419 3286 w
+10 /Times-Roman f
+(reads) 1761 3286 w
+(the) 1997 3286 w
+(index) 2146 3286 w
+(file) 2395 3286 w
+(sequentially) 2555 3286 w
+(from) 3065 3286 w
+(start) 3286 3286 w
+(to) 3485 3286 w
+(end) 3590 3286 w
+(and) 3761 3286 w
+(places) 3932 3286 w
+(a) 4208 3286 w
+(part) 4279 3286 w
+(of) 4461 3286 w
+(the) 4571 3286 w
+(score) 4720 3286 w
+(of) 4957 3286 w
+(each) 720 3406 w
+(stored) 941 3406 w
+(block) 1224 3406 w
+(in) 1485 3406 w
+(memory.) 1601 3406 w
+(The) 2022 3406 w
+(data) 2215 3406 w
+(file) 2419 3406 w
+(keeps) 2590 3406 w
+(the) 2855 3406 w
+(actual) 3015 3406 w
+(data) 3291 3406 w
+(and) 3495 3406 w
+(all) 3677 3406 w
+(relevant) 3815 3406 w
+(meta\255data,) 4174 3406 w
+(enough) 4630 3406 w
+(to) 4962 3406 w
+(reconstruct) 720 3526 w
+(an) 1194 3526 w
+(index) 1319 3526 w
+(file) 1572 3526 w
+(\(though) 1736 3526 w
+(to) 2078 3526 w
+(reconstruct) 2187 3526 w
+(an) 2661 3526 w
+(index) 2786 3526 w
+(file,) 3039 3526 w
+(the) 3228 3526 w
+(entire) 3381 3526 w
+(data) 3639 3526 w
+(file) 3836 3526 w
+(has) 4000 3526 w
+(to) 4165 3526 w
+(be) 4275 3526 w
+(read\).) 4401 3526 w
+(The) 4687 3526 w
+(data) 4874 3526 w
+(file) 720 3646 w
+(is) 885 3646 w
+(a) 984 3646 w
+(concatenation) 1060 3646 w
+(of) 1646 3646 w
+(blocks,) 1760 3646 w
+(each) 2077 3646 w
+(consisting) 2290 3646 w
+(of) 2727 3646 w
+(a) 2841 3646 w
+(data) 2916 3646 w
+(header) 3113 3646 w
+(followed) 3409 3646 w
+(by) 3795 3646 w
+(the) 3926 3646 w
+(data) 4079 3646 w
+(itself;) 4276 3646 w
+(compression) 4535 3646 w
+(changes) 720 3766 w
+(this) 1075 3766 w
+(slightly.) 1254 3766 w
+(The) 1640 3766 w
+(index) 1830 3766 w
+(file) 2087 3766 w
+(is) 2255 3766 w
+(a) 2357 3766 w
+(concatenation) 2436 3766 w
+(of) 3025 3766 w
+(index) 3143 3766 w
+(headers,) 3400 3766 w
+(each) 3764 3766 w
+(referencing) 3981 3766 w
+(a) 4469 3766 w
+(block) 4548 3766 w
+(in) 4805 3766 w
+(the) 4918 3766 w
+(data) 720 3886 w
+(file) 919 3886 w
+(\(and) 1085 3886 w
+(in) 1295 3886 w
+(the) 1406 3886 w
+(same) 1561 3886 w
+(order\).) 1799 3886 w
+(The) 2124 3886 w
+(file) 2311 3886 w
+(formats) 2476 3886 w
+(are) 2813 3886 w
+(described) 2966 3886 w
+(first) 3380 3886 w
+(for) 3573 3886 w
+(the) 3721 3886 w
+(simple) 3875 3886 w
+(case,) 4174 3886 w
+(without) 4402 3886 w
+(support) 4740 3886 w
+(for) 720 4006 w
+(compression;) 862 4006 w
+(first) 1446 4006 w
+(the) 1633 4006 w
+(data) 1781 4006 w
+(file) 1973 4006 w
+(format,) 2132 4006 w
+(followed) 2449 4006 w
+(by) 2830 4006 w
+(the) 2956 4006 w
+(index) 3105 4006 w
+(file) 3354 4006 w
+(format.) 3514 4006 w
+(Then) 3857 4006 w
+(the) 4089 4006 w
+(file) 4238 4006 w
+(format) 4398 4006 w
+(that) 4691 4006 w
+(sup\255) 4868 4006 w
+(ports compressed blocks is described.) 720 4126 w
+10 /Times-Bold f
+(Format of data file) 720 4366 w
+10 /Times-Roman f
+(An) 970 4522 w
+(empty) 1130 4522 w
+(\(zero) 1418 4522 w
+(length\)) 1660 4522 w
+(data) 1981 4522 w
+(file) 2185 4522 w
+(is) 2356 4522 w
+(simply) 2461 4522 w
+(a) 2772 4522 w
+(data) 2854 4522 w
+(file) 3058 4522 w
+(without) 3229 4522 w
+(any) 3573 4522 w
+(blocks) 3756 4522 w
+(stored) 4056 4522 w
+(in) 4339 4522 w
+(it.) 4456 4522 w
+(A) 4601 4522 w
+(block) 4712 4522 w
+(is) 4973 4522 w
+(stored) 720 4642 w
+(by) 993 4642 w
+(writing) 1122 4642 w
+(a) 1440 4642 w
+(header,) 1513 4642 w
+(called) 1831 4642 w
+10 /Times-Italic f
+(Dhdr) 2097 4642 w
+10 /Times-Roman f
+(,) 2308 4642 w
+(to) 2361 4642 w
+(the) 2467 4642 w
+(data) 2617 4642 w
+(file,) 2811 4642 w
+(followed) 2997 4642 w
+(by) 3380 4642 w
+(the) 3508 4642 w
+(data) 3658 4642 w
+(itself.) 3852 4642 w
+(The) 4130 4642 w
+(header) 4313 4642 w
+(is) 4606 4642 w
+(31) 4701 4642 w
+(bytes) 4829 4642 w
+(long:) 720 4762 w
+(a) 952 4762 w
+(4) 1022 4762 w
+(byte) 1098 4762 w
+10 /Times-Italic f
+(magic) 1296 4762 w
+10 /Times-Roman f
+(,) 1540 4762 w
+(20) 1591 4762 w
+(byte) 1717 4762 w
+10 /Times-Italic f
+(score) 1915 4762 w
+10 /Times-Roman f
+(,) 2131 4762 w
+(1) 2182 4762 w
+(byte) 2258 4762 w
+10 /Times-Italic f
+(data) 2456 4762 w
+(type) 2660 4762 w
+10 /Times-Roman f
+(,) 2826 4762 w
+(2) 2877 4762 w
+(byte) 2953 4762 w
+10 /Times-Italic f
+(size) 3151 4762 w
+10 /Times-Roman f
+(,) 3301 4762 w
+(4) 3353 4762 w
+(bytes) 3430 4762 w
+10 /Times-Italic f
+(connection) 3668 4762 w
+(time) 4133 4762 w
+10 /Times-Roman f
+(.) 4305 4762 w
+(The) 4382 4762 w
+(fixed) 4564 4762 w
+(magic) 4796 4762 w
+(value) 720 4882 w
+(is) 976 4882 w
+10 /Courier f
+(0x2f9d81e5) 1083 4882 w
+10 /Times-Roman f
+(.) 1683 4882 w
+10 /Times-Italic f
+(Size) 1773 4882 w
+10 /Times-Roman f
+(indicates) 1974 4882 w
+(the) 2369 4882 w
+(number) 2531 4882 w
+(of) 2876 4882 w
+(bytes) 2998 4882 w
+(following) 3248 4882 w
+(the) 3676 4882 w
+(header,) 3837 4882 w
+(thus) 4166 4882 w
+(size) 4372 4882 w
+(of) 4566 4882 w
+(the) 4688 4882 w
+(data.) 4849 4882 w
+(Even) 720 5002 w
+(though) 952 5002 w
+(2) 1257 5002 w
+(bytes) 1334 5002 w
+(can) 1572 5002 w
+(address) 1737 5002 w
+(up) 2063 5002 w
+(to) 2190 5002 w
+(64) 2295 5002 w
+(kilobytes,) 2422 5002 w
+(only) 2841 5002 w
+(values) 3046 5002 w
+(up) 3328 5002 w
+(to) 3455 5002 w
+(56) 3560 5002 w
+(kilobytes) 3687 5002 w
+(are) 4081 5002 w
+(valid) 4229 5002 w
+(since) 4457 5002 w
+(the) 4690 5002 w
+(venti) 4840 5002 w
+(protocol) 720 5122 w
+(does) 1088 5122 w
+(not) 1306 5122 w
+(allow) 1468 5122 w
+(larger) 1724 5122 w
+(blocks.) 1990 5122 w
+(Note) 2335 5122 w
+(that) 2563 5122 w
+(the) 2747 5122 w
+(`zero) 2903 5122 w
+(score') 3141 5122 w
+10 /LucidaSansUnicode20 f
+(\024) 3384 5122 w
+10 /Times-Roman f
+(the) 3484 5122 w
+(score) 3640 5122 w
+(belonging) 3884 5122 w
+(to) 4318 5122 w
+(the) 4430 5122 w
+(zero\255length) 4586 5122 w
+(data) 720 5242 w
+(block) 913 5242 w
+10 /LucidaSansUnicode20 f
+(\024) 1135 5242 w
+10 /Times-Roman f
+(is) 1235 5242 w
+(never) 1329 5242 w
+(stored) 1577 5242 w
+(on) 1848 5242 w
+(disk.) 1975 5242 w
+(It) 2219 5242 w
+(is) 2307 5242 w
+(handled) 2401 5242 w
+(internally) 2744 5242 w
+(by) 3154 5242 w
+10 /Times-Italic f
+(ventisrv) 3281 5242 w
+10 /Times-Roman f
+(,) 3597 5242 w
+(though) 3650 5242 w
+(such) 3956 5242 w
+(a) 4167 5242 w
+(block) 4239 5242 w
+(is) 4489 5242 w
+(valid) 4584 5242 w
+(in) 4812 5242 w
+(the) 4918 5242 w
+(file) 720 5362 w
+(format.) 879 5362 w
+(The) 1221 5362 w
+10 /Times-Italic f
+(score) 1402 5362 w
+10 /Times-Roman f
+(in) 1644 5362 w
+(the) 1748 5362 w
+(header) 1896 5362 w
+(is) 2187 5362 w
+(the) 2280 5362 w
+(score) 2428 5362 w
+(of) 2664 5362 w
+(the) 2773 5362 w
+(data) 2921 5362 w
+(following the header.) 3113 5362 w
+(During operation) 4014 5362 w
+10 /Times-Italic f
+(ventisrv) 4724 5362 w
+10 /Times-Roman f
+(checks) 720 5482 w
+(whether) 1018 5482 w
+(the) 1366 5482 w
+(score) 1515 5482 w
+(in) 1752 5482 w
+(the) 1857 5482 w
+(header) 2006 5482 w
+(matches) 2298 5482 w
+(the) 2652 5482 w
+(score) 2801 5482 w
+(it) 3039 5482 w
+(calculates) 3123 5482 w
+(from) 3544 5482 w
+(the) 3766 5482 w
+(data,) 3916 5482 w
+(to) 4135 5482 w
+(detect) 4241 5482 w
+(e.g.) 4507 5482 w
+(disk) 4679 5482 w
+(fail\255) 4874 5482 w
+(ures.) 720 5602 w
+(The) 964 5602 w
+10 /Times-Italic f
+(connection) 1147 5602 w
+(time) 1613 5602 w
+10 /Times-Roman f
+(is) 1813 5602 w
+(the) 1908 5602 w
+(time) 2058 5602 w
+(\(in) 2264 5602 w
+(seconds) 2403 5602 w
+(since) 2747 5602 w
+(UNIX) 2980 5602 w
+(epoch\)) 3257 5602 w
+(at) 3556 5602 w
+(which) 3656 5602 w
+(the) 3927 5602 w
+(venti) 4076 5602 w
+(session) 4303 5602 w
+(\(TCP) 4619 5602 w
+(con\255) 4863 5602 w
+(nection\) was started.) 720 5722 w
+(It can be used to group and relate blocks to an accidental or malicious batch of writes.) 1593 5722 w
+(This is the definition of the) 970 5878 w
+10 /Courier f
+(Dhdr) 2081 5878 w
+10 /Times-Roman f
+(in Limbo \(with functions removed\), along with the) 2346 5878 w
+10 /Times-Italic f
+(magic) 4403 5878 w
+10 /Times-Roman f
+(:) 4647 5878 w
+9 /Courier f
+(Dhdrmagic:) 1062 6048 w
+(con big 16r2f9d81e5;) 1926 6048 w
+(Dhdr: adt {) 1062 6268 w
+(score:) 1440 6378 w
+(Score;) 2304 6378 w
+(# 20 bytes) 2736 6378 w
+(dtype:) 1440 6488 w
+(int;) 2304 6488 w
+(# 1 byte) 2736 6488 w
+(size:) 1440 6598 w
+(int;) 2304 6598 w
+(# 2 bytes) 2736 6598 w
+(conntime:) 1440 6708 w
+(big;) 2304 6708 w
+(# 4 bytes) 2736 6708 w
+(};) 1062 6818 w
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 1
+%%Page: 2 2
+/saveobj save def
+mark
+2 pagesetup
+10 /Times-Roman f
+(\255 2 \255) 2797 480 w
+10 /Times-Bold f
+(Format of the index file) 720 840 w
+10 /Times-Roman f
+(For) 970 996 w
+(each) 1137 996 w
+(block) 1347 996 w
+(\(header) 1597 996 w
+(and) 1923 996 w
+(data\)) 2095 996 w
+(written) 2322 996 w
+(to) 2633 996 w
+(the) 2739 996 w
+(data) 2889 996 w
+(file,) 3083 996 w
+(an) 3269 996 w
+10 /Times-Italic f
+(Ihdr) 3391 996 w
+10 /Times-Roman f
+(is) 3591 996 w
+(written) 3686 996 w
+(to) 3997 996 w
+(the) 4103 996 w
+(index) 4254 996 w
+(file.) 4505 996 w
+(An) 4717 996 w
+10 /Times-Italic f
+(Ihdr) 4868 996 w
+10 /Times-Roman f
+(is) 720 1116 w
+(15) 814 1116 w
+(bytes) 941 1116 w
+(long:) 1179 1116 w
+(the) 1411 1116 w
+(first) 1559 1116 w
+(8) 1746 1116 w
+(bytes) 1822 1116 w
+(of) 2059 1116 w
+(the) 2168 1116 w
+(score) 2316 1116 w
+(called) 2552 1116 w
+10 /Times-Italic f
+(halfscore) 2816 1116 w
+10 /Times-Roman f
+(,) 3188 1116 w
+(a) 3239 1116 w
+(1) 3309 1116 w
+(byte) 3385 1116 w
+10 /Times-Italic f
+(data) 3583 1116 w
+(type) 3787 1116 w
+10 /Times-Roman f
+(and) 3979 1116 w
+(a) 4149 1116 w
+(6) 4219 1116 w
+(byte) 4295 1116 w
+10 /Times-Italic f
+(offset) 4493 1116 w
+10 /Times-Roman f
+(into) 4736 1116 w
+(the) 4918 1116 w
+(data file.) 720 1236 w
+(Only) 970 1392 w
+(8) 1199 1392 w
+(bytes) 1278 1392 w
+(from) 1518 1392 w
+(the) 1741 1392 w
+(score) 1892 1392 w
+(are) 2131 1392 w
+(stored.) 2281 1392 w
+(Storing) 2604 1392 w
+(more) 2928 1392 w
+(is) 3162 1392 w
+(not) 3258 1392 w
+(useful:) 3415 1392 w
+(if) 3716 1392 w
+(more) 3806 1392 w
+(bytes) 4040 1392 w
+(were) 4280 1392 w
+(needed,) 4503 1392 w
+(main) 4840 1392 w
+(memory) 720 1512 w
+(requirements) 1082 1512 w
+(would) 1632 1512 w
+(be) 1911 1512 w
+(exceed) 2034 1512 w
+(the) 2339 1512 w
+(amount) 2490 1512 w
+(of) 2819 1512 w
+(memory) 2931 1512 w
+(that) 3293 1512 w
+(fits) 3472 1512 w
+(in) 3629 1512 w
+(a) 3736 1512 w
+(computer.) 3809 1512 w
+(Also,) 4265 1512 w
+(the) 4507 1512 w
+(index) 4657 1512 w
+(file) 4907 1512 w
+(has) 720 1632 w
+(to) 880 1632 w
+(be) 985 1632 w
+(read) 1106 1632 w
+(into) 1304 1632 w
+(memory) 1487 1632 w
+(at) 1847 1632 w
+10 /Times-Italic f
+(ventisrv) 1946 1632 w
+10 /Times-Roman f
+(startup,) 2289 1632 w
+(so) 2613 1632 w
+(it) 2729 1632 w
+(is) 2812 1632 w
+(best) 2906 1632 w
+(to) 3094 1632 w
+(keep) 3199 1632 w
+(it) 3414 1632 w
+(as) 3497 1632 w
+(small) 3607 1632 w
+(as) 3852 1632 w
+(possible.) 3963 1632 w
+(Even) 4369 1632 w
+(8) 4602 1632 w
+(bytes) 4680 1632 w
+(are) 4919 1632 w
+(more) 720 1752 w
+(than) 951 1752 w
+(needed) 1149 1752 w
+(for) 1457 1752 w
+(almost) 1599 1752 w
+(all) 1892 1752 w
+10 /Times-Italic f
+(ventisrv) 2018 1752 w
+10 /Times-Roman f
+(installations.) 2360 1752 w
+(Note) 2920 1752 w
+(that) 3140 1752 w
+(index) 3316 1752 w
+(headers) 3564 1752 w
+(do) 3894 1752 w
+(not contain a `magic' and) 4020 1752 w
+(do not have data following them.) 720 1872 w
+(Only) 970 2028 w
+(6) 1210 2028 w
+(bytes) 1300 2028 w
+(are) 1551 2028 w
+(used) 1712 2028 w
+(for) 1935 2028 w
+(storing) 2091 2028 w
+(the) 2409 2028 w
+(offset) 2571 2028 w
+(into) 2838 2028 w
+(the) 3034 2028 w
+(data) 3197 2028 w
+(file.) 3404 2028 w
+(More) 3628 2028 w
+(address) 3885 2028 w
+(space) 4225 2028 w
+(will) 4487 2028 w
+(never) 4684 2028 w
+(be) 4946 2028 w
+(needed) 720 2148 w
+(because) 1031 2148 w
+(main) 1375 2148 w
+(memory) 1604 2148 w
+(will) 1966 2148 w
+(run) 2151 2148 w
+(out) 2313 2148 w
+(first) 2470 2148 w
+(when) 2660 2148 w
+(storing) 2905 2148 w
+(such) 3212 2148 w
+(large) 3424 2148 w
+(amounts) 3652 2148 w
+(of) 4020 2148 w
+(data.) 4132 2148 w
+10 /Times-Italic f
+(Offset) 4377 2148 w
+10 /Times-Roman f
+(is) 4645 2148 w
+(the) 4741 2148 w
+(off\255) 4891 2148 w
+(set) 720 2268 w
+(in) 858 2268 w
+(bytes) 963 2268 w
+(into) 1201 2268 w
+(the) 1384 2268 w
+(data) 1533 2268 w
+(file) 1726 2268 w
+(to) 1886 2268 w
+(the) 1991 2268 w
+(header) 2140 2268 w
+(of) 2432 2268 w
+(the) 2542 2268 w
+(block) 2691 2268 w
+(that) 2940 2268 w
+(is) 3117 2268 w
+(referenced.) 3211 2268 w
+(Headers) 3682 2268 w
+(in) 4035 2268 w
+(the) 4141 2268 w
+(index) 4291 2268 w
+(and) 4541 2268 w
+(data) 4713 2268 w
+(file) 4907 2268 w
+(always) 720 2388 w
+(occur) 1025 2388 w
+(in) 1274 2388 w
+(the) 1380 2388 w
+(same) 1530 2388 w
+(order.) 1763 2388 w
+(This) 2051 2388 w
+(means) 2257 2388 w
+(the) 2540 2388 w
+(offsets) 2689 2388 w
+(in) 2982 2388 w
+(the) 3087 2388 w
+(consecutive) 3236 2388 w
+(index) 3734 2388 w
+(headers) 3983 2388 w
+(are) 4314 2388 w
+(monotonically) 4462 2388 w
+(increasing.) 720 2508 w
+(Below) 970 2664 w
+(the) 1259 2664 w
+(definition) 1409 2664 w
+(of) 1826 2664 w
+(an) 1937 2664 w
+10 /Courier f
+(Ihdr) 2059 2664 w
+10 /Times-Roman f
+(in) 2327 2664 w
+(Limbo) 2433 2664 w
+(\(with) 2728 2664 w
+(functions) 2967 2664 w
+(removed\)) 3367 2664 w
+(is) 3777 2664 w
+(given.) 3872 2664 w
+(The) 4173 2664 w
+(field) 4357 2664 w
+10 /Times-Italic f
+(compressed) 4569 2664 w
+10 /Times-Roman f
+(is used only for compression and can be ignored for now.) 720 2784 w
+9 /Courier f
+(Ihdr: adt {) 1062 2954 w
+(halfscore:) 1440 3064 w
+(array of byte;) 2304 3064 w
+(# 8 bytes) 3168 3064 w
+(dtype:) 1440 3174 w
+(int;) 2304 3174 w
+(# 1 byte) 3168 3174 w
+(offset:) 1440 3284 w
+(big;) 2304 3284 w
+(# 6 bytes) 3168 3284 w
+(compressed:) 1440 3394 w
+(int;) 2304 3394 w
+(};) 1062 3504 w
+10 /Times-Bold f
+(File format changes to support compression) 720 3804 w
+10 /Times-Roman f
+(After) 970 3960 w
+(the) 1210 3960 w
+(basic) 1362 3960 w
+10 /Times-Italic f
+(ventisrv) 1597 3960 w
+10 /Times-Roman f
+(functionality) 1943 3960 w
+(had) 2484 3960 w
+(been) 2658 3960 w
+(implemented,) 2876 3960 w
+(support) 3454 3960 w
+(for) 3785 3960 w
+(compressing) 3932 3960 w
+(blocks) 4468 3960 w
+(of) 4760 3960 w
+(data) 4874 3960 w
+(was) 720 4080 w
+(added.) 911 4080 w
+(The) 1235 4080 w
+(most) 1426 4080 w
+(straight\255forward) 1657 4080 w
+(implementation) 2341 4080 w
+(is) 3005 4080 w
+(to) 3108 4080 w
+(add) 3222 4080 w
+(a) 3401 4080 w
+(bit) 3480 4080 w
+(to) 3621 4080 w
+(the) 3734 4080 w
+10 /Times-Italic f
+(Ihdr) 3891 4080 w
+10 /Times-Roman f
+(to) 4098 4080 w
+(indicate) 4211 4080 w
+(whether) 4562 4080 w
+(the) 4918 4080 w
+(block) 720 4200 w
+(is) 971 4200 w
+(compressed;) 1067 4200 w
+(and) 1595 4200 w
+(add) 1768 4200 w
+(a) 1941 4200 w
+(similar) 2014 4200 w
+(bit) 2321 4200 w
+(to) 2456 4200 w
+(the) 2563 4200 w
+10 /Times-Italic f
+(Dhdr) 2714 4200 w
+10 /Times-Roman f
+(,) 2925 4200 w
+(along) 2979 4200 w
+(with) 3230 4200 w
+(the) 3437 4200 w
+(size) 3588 4200 w
+(of) 3773 4200 w
+(the) 3886 4200 w
+(compressed) 4038 4200 w
+(payload) 4539 4200 w
+(\(i.e.) 4885 4200 w
+(data) 720 4320 w
+(actually) 920 4320 w
+(on) 1269 4320 w
+(disk,) 1402 4320 w
+(which) 1627 4320 w
+(will) 1904 4320 w
+(be) 2093 4320 w
+(decompressed) 2220 4320 w
+(to) 2818 4320 w
+(the) 2929 4320 w
+(actual) 3084 4320 w
+(data\).) 3355 4320 w
+(The) 3637 4320 w
+(actual) 3825 4320 w
+(implementation) 4096 4320 w
+(is) 4757 4320 w
+(a) 4857 4320 w
+(bit) 4934 4320 w
+(different.) 720 4440 w
+(A) 1144 4440 w
+(new) 1247 4440 w
+(header) 1444 4440 w
+(can) 1740 4440 w
+(now) 1909 4440 w
+(occur) 2112 4440 w
+(in) 2364 4440 w
+(the) 2473 4440 w
+(data) 2626 4440 w
+(file,) 2823 4440 w
+(the) 3012 4440 w
+10 /Times-Italic f
+(Fhdr) 3165 4440 w
+10 /Times-Roman f
+(\(`F') 3396 4440 w
+(for) 3582 4440 w
+(flate,) 3729 4440 w
+(the) 3962 4440 w
+(compression) 4115 4440 w
+(algorithm) 4651 4440 w
+(used,) 720 4560 w
+(implemented) 954 4560 w
+(by) 1502 4560 w
+(Inferno's) 1628 4560 w
+10 /Times-Italic f
+(filter\255deflate\(2\)) 2018 4560 w
+10 /Times-Roman f
+(module.) 2659 4560 w
+(An) 3034 4560 w
+10 /Times-Italic f
+(Fhdr) 3181 4560 w
+10 /Times-Roman f
+(is of variable length, it contains informa\255) 3406 4560 w
+(tion about one or more data blocks.) 720 4680 w
+(This is necessary because the compressed payload following the) 2182 4680 w
+(header) 4775 4680 w
+(contains) 720 4800 w
+(data) 1092 4800 w
+(for) 1297 4800 w
+(multiple) 1452 4800 w
+(blocks.) 1825 4800 w
+(The) 2174 4800 w
+(only) 2367 4800 w
+(reason) 2583 4800 w
+(for) 2881 4800 w
+(compressing) 3035 4800 w
+(multiple) 3578 4800 w
+(blocks) 3950 4800 w
+(into) 4249 4800 w
+(a) 4443 4800 w
+(single) 4525 4800 w
+(`com\255) 4802 4800 w
+(pressed) 720 4920 w
+(payload') 1050 4920 w
+(is) 1430 4920 w
+(that) 1529 4920 w
+(the) 1711 4920 w
+(compression) 1865 4920 w
+(ratio) 2402 4920 w
+(will) 2617 4920 w
+(be) 2805 4920 w
+(higher:) 2931 4920 w
+(the) 3246 4920 w
+(search) 3400 4920 w
+(history) 3686 4920 w
+(for) 3996 4920 w
+(the) 4144 4920 w
+(compression) 4298 4920 w
+(algo\255) 4835 4920 w
+(rithm will be larger, and it does not have to build up such a history for each block to compress.) 720 5040 w
+(The) 970 5196 w
+(fixed\255length) 1157 5196 w
+(part) 1677 5196 w
+(of) 1864 5196 w
+(an) 1979 5196 w
+10 /Times-Italic f
+(Fhdr) 2105 5196 w
+10 /Times-Roman f
+(is) 2337 5196 w
+(7) 2437 5196 w
+(bytes) 2520 5196 w
+(long:) 2764 5196 w
+(a) 3028 5196 w
+(4) 3105 5196 w
+(byte) 3188 5196 w
+10 /Times-Italic f
+(magic) 3393 5196 w
+10 /Times-Roman f
+(,) 3637 5196 w
+(a) 3695 5196 w
+(1) 3772 5196 w
+(byte) 3855 5196 w
+10 /Times-Italic f
+(count) 4060 5196 w
+10 /Times-Roman f
+(for) 4315 5196 w
+(the) 4464 5196 w
+(number) 4619 5196 w
+(of) 4957 5196 w
+(blocks) 720 5316 w
+(stored) 1017 5316 w
+(in) 1297 5316 w
+(the) 1410 5316 w
+(compressed) 1567 5316 w
+(payload,) 2073 5316 w
+(and) 2449 5316 w
+(a) 2628 5316 w
+(2) 2707 5316 w
+(byte) 2792 5316 w
+10 /Times-Italic f
+(size) 2999 5316 w
+10 /Times-Roman f
+(of) 3184 5316 w
+(the) 3302 5316 w
+(compressed) 3459 5316 w
+(payload.) 3965 5316 w
+(The) 4366 5316 w
+(fixed) 4556 5316 w
+(magic) 4796 5316 w
+(value) 720 5436 w
+(is) 964 5436 w
+10 /Courier f
+(0x78c66a15) 1059 5436 w
+10 /Times-Roman f
+(.) 1659 5436 w
+(The) 1737 5436 w
+(maximum) 1920 5436 w
+(number) 2354 5436 w
+(of) 2687 5436 w
+(compressed) 2798 5436 w
+(blocks) 3297 5436 w
+(in) 3587 5436 w
+(a) 3694 5436 w
+(single) 3767 5436 w
+10 /Times-Italic f
+(Fhdr) 4035 5436 w
+10 /Times-Roman f
+(is) 4264 5436 w
+(256.) 4360 5436 w
+(The) 4589 5436 w
+(size) 4773 5436 w
+(of) 4957 5436 w
+(the) 720 5556 w
+(compressed) 869 5556 w
+(payload) 1367 5556 w
+(is) 1710 5556 w
+(currently) 1803 5556 w
+(kept) 2189 5556 w
+(<=) 2387 5556 w
+(56) 2525 5556 w
+(kilobytes,) 2651 5556 w
+(though) 3069 5556 w
+(they) 3373 5556 w
+(can) 3571 5556 w
+(be) 3735 5556 w
+(up) 3855 5556 w
+(to) 3981 5556 w
+(64) 4085 5556 w
+(kilobytes.) 4211 5556 w
+(The) 4654 5556 w
+(max\255) 4835 5556 w
+(imum) 720 5676 w
+(size) 984 5676 w
+(cannot) 1170 5676 w
+(be) 1467 5676 w
+(much) 1592 5676 w
+(larger) 1845 5676 w
+(because) 2108 5676 w
+(the) 2454 5676 w
+(entire) 2607 5676 w
+(compressed) 2865 5676 w
+(payload) 3367 5676 w
+(up) 3714 5676 w
+(to) 3845 5676 w
+(the) 3954 5676 w
+(needed) 4107 5676 w
+(block) 4420 5676 w
+(has) 4673 5676 w
+(to) 4837 5676 w
+(be) 4946 5676 w
+(decompressed to read that block.) 720 5796 w
+(The variable\255length part of the header immediately follows the fixed\255length part.) 970 5952 w
+(This variable part is) 4244 5952 w
+(made) 720 6072 w
+(up) 964 6072 w
+(of) 1092 6072 w
+(a) 1203 6072 w
+(header) 1275 6072 w
+(for) 1568 6072 w
+(each) 1712 6072 w
+(block) 1922 6072 w
+(stored) 2172 6072 w
+(in) 2444 6072 w
+(the) 2550 6072 w
+(compressed) 2700 6072 w
+(payload.) 3199 6072 w
+(Each) 3593 6072 w
+(such) 3820 6072 w
+(header) 4031 6072 w
+(looks) 4324 6072 w
+(much) 4569 6072 w
+(like) 4819 6072 w
+(a) 4996 6072 w
+10 /Times-Italic f
+(Dhdr) 720 6192 w
+10 /Times-Roman f
+(,) 931 6192 w
+(it) 984 6192 w
+(is) 1068 6192 w
+(27) 1163 6192 w
+(bytes) 1291 6192 w
+(in) 1530 6192 w
+(size:) 1636 6192 w
+(a) 1872 6192 w
+(20) 1944 6192 w
+(byte) 2072 6192 w
+10 /Times-Italic f
+(score) 2272 6192 w
+10 /Times-Roman f
+(,) 2488 6192 w
+(1) 2542 6192 w
+(byte) 2621 6192 w
+10 /Times-Italic f
+(data) 2822 6192 w
+(type) 3029 6192 w
+10 /Times-Roman f
+(,) 3195 6192 w
+(2) 3249 6192 w
+(byte) 3328 6192 w
+10 /Times-Italic f
+(size) 3529 6192 w
+10 /Times-Roman f
+(and) 3708 6192 w
+(4) 3881 6192 w
+(byte) 3960 6192 w
+10 /Times-Italic f
+(connection) 4161 6192 w
+(time) 4628 6192 w
+10 /Times-Roman f
+(.) 4800 6192 w
+10 /Times-Italic f
+(Size) 4879 6192 w
+10 /Times-Roman f
+(is) 720 6312 w
+(the) 814 6312 w
+(size) 963 6312 w
+(of) 1145 6312 w
+(the) 1255 6312 w
+(uncompressed) 1404 6312 w
+(data.) 2002 6312 w
+(To) 2245 6312 w
+(illustrate,) 2383 6312 w
+(consider) 2785 6312 w
+(an) 3150 6312 w
+10 /Times-Italic f
+(Fhdr) 3271 6312 w
+10 /Times-Roman f
+(that) 3498 6312 w
+(represents) 3675 6312 w
+(two) 4105 6312 w
+(blocks.) 4281 6312 w
+(On) 4618 6312 w
+(disk,) 4766 6312 w
+(it) 4984 6312 w
+(will) 720 6432 w
+(start) 902 6432 w
+(off) 1100 6432 w
+(with) 1242 6432 w
+(7) 1446 6432 w
+(bytes) 1522 6432 w
+(of) 1759 6432 w
+(fixed\255size) 1868 6432 w
+(header.) 2287 6432 w
+(The) 2628 6432 w
+10 /Times-Italic f
+(count) 2809 6432 w
+10 /Times-Roman f
+(will) 3057 6432 w
+(be) 3239 6432 w
+(set) 3359 6432 w
+(to) 3496 6432 w
+(2.) 3601 6432 w
+(This) 3728 6432 w
+(header) 3933 6432 w
+(is) 4225 6432 w
+(followed) 4319 6432 w
+(immedi\255) 4701 6432 w
+(ately) 720 6552 w
+(by) 940 6552 w
+(27) 1066 6552 w
+(bytes) 1192 6552 w
+(for) 1429 6552 w
+(the) 1571 6552 w
+(first block and another 27 bytes for the second block.) 1719 6552 w
+(After this a compressed pay\255) 3893 6552 w
+(load follows with a) 720 6672 w
+10 /Times-Italic f
+(size) 1514 6672 w
+10 /Times-Roman f
+(specified in the fixed\255length part of) 1689 6672 w
+(the) 3126 6672 w
+(header.) 3274 6672 w
+(Note) 3615 6672 w
+(that) 3835 6672 w
+(the) 4011 6672 w
+(entire) 4159 6672 w
+(header) 4412 6672 w
+(is) 4703 6672 w
+(stored) 4796 6672 w
+(uncompressed) 720 6792 w
+(on) 1323 6792 w
+(file.) 1455 6792 w
+(This) 1670 6792 w
+(allows) 1880 6792 w
+(for) 2173 6792 w
+(determining) 2321 6792 w
+(whether) 2836 6792 w
+(a) 3189 6792 w
+(score) 3265 6792 w
+(is) 3507 6792 w
+(present) 3606 6792 w
+(by) 3926 6792 w
+(only) 4058 6792 w
+(reading) 4267 6792 w
+(the) 4597 6792 w
+(header.) 4750 6792 w
+(Compressing) 720 6912 w
+(the) 1276 6912 w
+(27) 1426 6912 w
+(bytes) 1554 6912 w
+(would) 1793 6912 w
+(not) 2071 6912 w
+(be) 2227 6912 w
+(of) 2349 6912 w
+(much) 2460 6912 w
+(use) 2710 6912 w
+(anyway,) 2871 6912 w
+(since) 3234 6912 w
+(20) 3467 6912 w
+(bytes) 3595 6912 w
+(of) 3834 6912 w
+(out) 3945 6912 w
+(27) 4102 6912 w
+(are) 4231 6912 w
+(the) 4381 6912 w
+(score,) 4532 6912 w
+(which) 4796 6912 w
+(is random data to the compression algorithm.) 720 7032 w
+(The) 970 7188 w
+(index) 1155 7188 w
+(header) 1407 7188 w
+(changes) 1702 7188 w
+(only) 2053 7188 w
+(slightly:) 2261 7188 w
+(the) 2645 7188 w
+(most) 2797 7188 w
+(significant) 3022 7188 w
+(bit) 3474 7188 w
+(of) 3610 7188 w
+(the) 3723 7188 w
+(data) 3875 7188 w
+(file) 4071 7188 w
+10 /Times-Italic f
+(offset) 4234 7188 w
+10 /Times-Roman f
+(now) 4482 7188 w
+(indicates) 4685 7188 w
+(whether) 720 7308 w
+(the) 1069 7308 w
+(header) 1219 7308 w
+(in) 1512 7308 w
+(the) 1617 7308 w
+(data) 1766 7308 w
+(file) 1959 7308 w
+(it) 2119 7308 w
+(points) 2202 7308 w
+(to) 2474 7308 w
+(is) 2579 7308 w
+(a) 2673 7308 w
+10 /Times-Italic f
+(Dhdr) 2744 7308 w
+10 /Times-Roman f
+(\(when) 2982 7308 w
+(the) 3258 7308 w
+(bit) 3407 7308 w
+(is) 3540 7308 w
+(not) 3634 7308 w
+(set\)) 3789 7308 w
+(or) 3960 7308 w
+(an) 4070 7308 w
+10 /Times-Italic f
+(Fhdr) 4191 7308 w
+10 /Times-Roman f
+(\(when) 4418 7308 w
+(it) 4694 7308 w
+(is) 4777 7308 w
+(set\).) 4871 7308 w
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 2 2
+%%Page: 3 3
+/saveobj save def
+mark
+3 pagesetup
+10 /Times-Roman f
+(\255 3 \255) 2797 480 w
+(This) 720 840 w
+(value) 933 840 w
+(is) 1184 840 w
+(represented) 1286 840 w
+(in) 1781 840 w
+(the) 1895 840 w
+10 /Courier f
+(Ihdr) 2053 840 w
+10 /Times-Roman f
+(by) 2329 840 w
+(the) 2465 840 w
+(field) 2623 840 w
+10 /Times-Italic f
+(compressed) 2842 840 w
+10 /Times-Roman f
+(.) 3313 840 w
+(Headers) 3399 840 w
+(in) 3761 840 w
+(the) 3875 840 w
+(index) 4033 840 w
+(file) 4291 840 w
+(are) 4460 840 w
+(still) 4617 840 w
+(in) 4804 840 w
+(the) 4918 840 w
+(same) 720 960 w
+(order) 953 960 w
+(of) 1191 960 w
+(appearance) 1302 960 w
+(as) 1777 960 w
+(the) 1888 960 w
+(blocks) 2038 960 w
+(in) 2327 960 w
+(the) 2433 960 w
+(data) 2583 960 w
+(file.) 2777 960 w
+(Note) 2988 960 w
+(that) 3210 960 w
+(each) 3388 960 w
+(stored) 3598 960 w
+(score) 3870 960 w
+(is) 4107 960 w
+(given) 4201 960 w
+(a) 4450 960 w
+(header) 4521 960 w
+(in) 4813 960 w
+(the) 4918 960 w
+(index) 720 1080 w
+(file.) 974 1080 w
+(This) 1189 1080 w
+(includes) 1399 1080 w
+(possible) 1764 1080 w
+(multiple) 2124 1080 w
+(scores) 2490 1080 w
+(in) 2771 1080 w
+(a) 2881 1080 w
+(single) 2957 1080 w
+10 /Times-Italic f
+(Fhdr) 3228 1080 w
+10 /Times-Roman f
+(in) 3460 1080 w
+(the) 3570 1080 w
+(data) 3724 1080 w
+(file:) 3922 1080 w
+(they) 4141 1080 w
+(each) 4346 1080 w
+(get) 4561 1080 w
+(an) 4716 1080 w
+10 /Times-Italic f
+(Ihdr) 4843 1080 w
+10 /Times-Roman f
+(,) 5015 1080 w
+(with) 720 1200 w
+(the) 928 1200 w
+(data) 1080 1200 w
+(file) 1276 1200 w
+(offset) 1439 1200 w
+(pointing) 1696 1200 w
+(to) 2060 1200 w
+(the) 2168 1200 w
+(same) 2320 1200 w
+(location) 2555 1200 w
+(in) 2907 1200 w
+(the) 3015 1200 w
+(data) 3167 1200 w
+(file.) 3363 1200 w
+(A) 3576 1200 w
+(program) 3678 1200 w
+(performing) 4046 1200 w
+(a) 4525 1200 w
+(lookup) 4599 1200 w
+(has) 4907 1200 w
+(to find the right score in the) 720 1320 w
+10 /Times-Italic f
+(Fhdr) 1855 1320 w
+10 /Times-Roman f
+(itself.) 2080 1320 w
+10 /Times-Italic f
+(Ventisrv) 970 1476 w
+10 /Times-Roman f
+(assumes) 1330 1476 w
+(data) 1690 1476 w
+(will) 1883 1476 w
+(compress) 2066 1476 w
+(to) 2470 1476 w
+(at) 2576 1476 w
+(most) 2676 1476 w
+(90%) 2899 1476 w
+(of) 3110 1476 w
+(the) 3221 1476 w
+(original) 3371 1476 w
+(size.) 3710 1476 w
+(When) 3943 1476 w
+(the) 4209 1476 w
+(current) 4359 1476 w
+(compres\255) 4669 1476 w
+(sion) 720 1596 w
+(buffer) 915 1596 w
+(has) 1186 1596 w
+(no) 1347 1596 w
+(room) 1475 1596 w
+(for) 1714 1596 w
+(another) 1858 1596 w
+(block) 2185 1596 w
+(the) 2435 1596 w
+10 /Times-Italic f
+(Fhdr) 2584 1596 w
+10 /Times-Roman f
+(is) 2811 1596 w
+(written) 2905 1596 w
+(to) 3215 1596 w
+(disk.) 3320 1596 w
+(If) 3564 1596 w
+10 /Times-Italic f
+(ventisrv) 3657 1596 w
+10 /Times-Roman f
+(tries) 4000 1596 w
+(adding) 4199 1596 w
+(a) 4498 1596 w
+(compressed) 4569 1596 w
+(block) 720 1716 w
+10 /LucidaSansUnicode20 f
+(\024) 942 1716 w
+10 /Times-Roman f
+(which) 1042 1716 w
+(was) 1332 1716 w
+(supposed) 1533 1716 w
+(to) 1951 1716 w
+(fit) 2075 1716 w
+(based) 2210 1716 w
+(on) 2483 1716 w
+(the) 2629 1716 w
+(90%\255size) 2798 1716 w
+(assumption) 3216 1716 w
+10 /LucidaSansUnicode20 f
+(\024) 3672 1716 w
+10 /Times-Roman f
+(but) 3772 1716 w
+(the) 3947 1716 w
+(maximum) 4116 1716 w
+(compressed) 4569 1716 w
+(buffer) 720 1836 w
+(size) 1002 1836 w
+(is) 1196 1836 w
+(exceeded,) 1302 1836 w
+(the) 1736 1836 w
+(blocks) 1896 1836 w
+(are) 2195 1836 w
+(written) 2354 1836 w
+(to) 2675 1836 w
+(the) 2791 1836 w
+(data) 2951 1836 w
+(file) 3155 1836 w
+(without) 3326 1836 w
+(compression,) 3670 1836 w
+(as) 4238 1836 w
+10 /Times-Italic f
+(Dhdr) 4359 1836 w
+10 /Times-Roman f
+(blocks.) 4608 1836 w
+(In) 4957 1836 w
+(other words,) 720 1956 w
+10 /Times-Italic f
+(Fhdr) 1244 1956 w
+10 /Times-Roman f
+(and) 1469 1956 w
+10 /Times-Italic f
+(Dhdr) 1638 1956 w
+10 /Times-Roman f
+(blocks can be mixed freely in the data file.) 1874 1956 w
+10 /Times-Bold f
+(Conclusions) 720 2196 w
+10 /Times-Roman f
+(Support) 970 2352 w
+(for) 1326 2352 w
+(compression) 1481 2352 w
+(makes) 2025 2352 w
+(the) 2319 2352 w
+(file) 2481 2352 w
+(format) 2654 2352 w
+(more) 2960 2352 w
+(complex,) 3205 2352 w
+(but) 3614 2352 w
+(not) 3782 2352 w
+(significantly) 3950 2352 w
+(so.) 4490 2352 w
+(Improve\255) 4669 2352 w
+(ments) 720 2472 w
+(could) 995 2472 w
+(be) 1253 2472 w
+(made) 1383 2472 w
+(in) 1635 2472 w
+(the) 1749 2472 w
+(area) 1907 2472 w
+(of) 2108 2472 w
+(compression.) 2227 2472 w
+(For) 2818 2472 w
+(example,) 2993 2472 w
+(another) 3391 2472 w
+(compression) 3725 2472 w
+(algorithm) 4265 2472 w
+(could) 4689 2472 w
+(be) 4946 2472 w
+(used,) 720 2592 w
+(one) 956 2592 w
+(that) 1128 2592 w
+(depends) 1306 2592 w
+(less) 1661 2592 w
+(on) 1839 2592 w
+(building) 1967 2592 w
+(up) 2329 2592 w
+(compression) 2457 2592 w
+(history,) 2990 2592 w
+(or) 3321 2592 w
+(has) 3432 2592 w
+(some) 3593 2592 w
+(predefined) 3833 2592 w
+(histories) 4288 2592 w
+(to) 4656 2592 w
+(choose) 4763 2592 w
+(from.) 720 2712 w
+(Also,) 991 2712 w
+(since) 1231 2712 w
+(compression) 1462 2712 w
+(is) 1993 2712 w
+(relatively) 2086 2712 w
+(slow,) 2489 2712 w
+(a) 2729 2712 w
+(faster) 2799 2712 w
+(compression) 3046 2712 w
+(algorithm) 3577 2712 w
+(would) 3992 2712 w
+(be) 4268 2712 w
+(welcome.) 4388 2712 w
+(Early) 4824 2712 w
+(detection) 720 2832 w
+(of) 1119 2832 w
+(whether) 1235 2832 w
+(data) 1589 2832 w
+(is) 1788 2832 w
+(compressible) 1889 2832 w
+(can) 2450 2832 w
+(alleviate) 2622 2832 w
+(the) 2994 2832 w
+(problem) 3150 2832 w
+(of) 3517 2832 w
+(slow) 3634 2832 w
+(compression) 3857 2832 w
+(somewhat.) 4396 2832 w
+(The) 4885 2832 w
+(header format would not necessarily have to change to accommodate for this.) 720 2952 w
+(The) 970 3108 w
+(index) 1159 3108 w
+(and) 1415 3108 w
+(data) 1593 3108 w
+(files) 1793 3108 w
+(contain) 1999 3108 w
+(enough) 2327 3108 w
+(information) 2655 3108 w
+(to) 3162 3108 w
+(cross\255check) 3275 3108 w
+(the) 3780 3108 w
+(validity) 3937 3108 w
+(of) 4278 3108 w
+(the) 4396 3108 w
+(data) 4553 3108 w
+(blocks.) 4754 3108 w
+10 /Times-Italic f
+(Ventisrv) 720 3228 w
+10 /Times-Roman f
+(performs) 1082 3228 w
+(such) 1471 3228 w
+(checks) 1683 3228 w
+(on) 1983 3228 w
+(the) 2112 3228 w
+(most) 2263 3228 w
+(recently) 2487 3228 w
+(written) 2837 3228 w
+(blocks) 3149 3228 w
+(in) 3439 3228 w
+(these) 3546 3228 w
+(files) 3780 3228 w
+(at) 3981 3228 w
+(startup.) 4082 3228 w
+(The) 4433 3228 w
+(data) 4617 3228 w
+(file) 4812 3228 w
+(is) 4973 3228 w
+(always) 720 3348 w
+(written) 1031 3348 w
+(before) 1348 3348 w
+(the) 1636 3348 w
+(index) 1792 3348 w
+(header) 2048 3348 w
+(is) 2347 3348 w
+(written,) 2448 3348 w
+(though) 2790 3348 w
+(not) 3103 3348 w
+(flushed) 3266 3348 w
+(explicitly,) 3595 3348 w
+(so) 4033 3348 w
+(the) 4157 3348 w
+(index) 4314 3348 w
+(file) 4571 3348 w
+(may) 4739 3348 w
+(be) 4946 3348 w
+(flushed) 720 3468 w
+(in) 1051 3468 w
+(the) 1166 3468 w
+(background) 1325 3468 w
+(by) 1833 3468 w
+(a) 1970 3468 w
+(file) 2050 3468 w
+(system) 2219 3468 w
+(scheduler.) 2533 3468 w
+(In) 3001 3468 w
+(any) 3120 3468 w
+(case,) 3300 3468 w
+(missing) 3532 3468 w
+(headers) 3880 3468 w
+(in) 4220 3468 w
+(the) 4334 3468 w
+(index) 4492 3468 w
+(file) 4750 3468 w
+(are) 4919 3468 w
+(automatically) 720 3588 w
+(added) 1292 3588 w
+(by) 1558 3588 w
+10 /Times-Italic f
+(ventisrv) 1686 3588 w
+10 /Times-Roman f
+(at) 2030 3588 w
+(startup,) 2130 3588 w
+(missing) 2455 3588 w
+(data) 2795 3588 w
+(file) 2989 3588 w
+(blocks) 3150 3588 w
+(are) 3439 3588 w
+(a) 3588 3588 w
+(fatal) 3660 3588 w
+(error) 3865 3588 w
+(and) 4086 3588 w
+(need) 4258 3588 w
+(to) 4474 3588 w
+(be) 4580 3588 w
+(resolved) 4702 3588 w
+(manually) 720 3708 w
+(\(by) 1126 3708 w
+(removing) 1293 3708 w
+(the) 1710 3708 w
+(index) 1866 3708 w
+(headers\).) 2122 3708 w
+(The) 2543 3708 w
+(only) 2732 3708 w
+(remaining) 2944 3708 w
+(question) 3383 3708 w
+(is) 3756 3708 w
+(what) 3857 3708 w
+(to) 4085 3708 w
+(do) 4197 3708 w
+(with) 4330 3708 w
+(permanently) 4541 3708 w
+(damaged) 720 3828 w
+(and) 1108 3828 w
+(non\255recoverable) 1280 3828 w
+(\(e.g.) 1955 3828 w
+(from) 2160 3828 w
+(backup\)) 2383 3828 w
+(data) 2733 3828 w
+(blocks.) 2928 3828 w
+(Ideally,) 3268 3828 w
+(it) 3599 3828 w
+(should) 3684 3828 w
+(be) 3980 3828 w
+(possible) 4103 3828 w
+(to) 4460 3828 w
+(mark) 4567 3828 w
+(a) 4801 3828 w
+(data) 4874 3828 w
+(block as invalid, at least in the data file.) 720 3948 w
+(There is currently no way to mark a block as such.) 2357 3948 w
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 3 3
+%%Trailer
+done
+%%DocumentFonts: Times-Roman LucidaSansUnicode20 Times-Italic Times-Bold Courier
+%%Pages: 3

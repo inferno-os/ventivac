@@ -1,0 +1,27 @@
+this file contains some ideas on what to test about the tools, and how
+to perform those tests.
+
+general:
+- cross-test the plan 9 venti, plan 9 from user space nventi and ventisrv,
+  using venti/^(read write).
+- cross-test the plan 9 (from user space) vac and vacfs, and vacget,
+  vacput and vacfs.
+
+ventisrv:
+- test with/without compression, test with reading compressed data file
+  but not writing new compressed blocks (-C vs. -c).
+- test whether ventisrv continues properly when index is
+  empty/partial/complete, when shutdown while writing.
+- test the operations:  pristine/duplicate write, absent/present read, random/sequential operations.
+
+vcache:
+- client doing multiple requests, read/write/sync mixed.
+- using all combinations of read/write/sync.
+- client qeueing requests (vtest).
+- inspect fd's to see if remote connection really does go down.
+- try exceeding 256 tids in a client (use vtest).
+- make dials fail (both, only proxy, only authorative).
+- test -n with bad proxy/authorative server.
+
+vacput:
+- writing special files: +t for temporary, should be skipped.

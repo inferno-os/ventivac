@@ -1,0 +1,12 @@
+<../mkconfig
+
+MODDIR=$ROOT/module
+
+$MODDIR/%.m:	%.m
+        rm -f $MODDIR/$stem.m && cp $stem.m $MODDIR/$stem.m
+
+all:QV:
+	
+clean:QV:
+	
+install:V:	$MODDIR/vac.m $MODDIR/venti.m $MODDIR/rabin.m

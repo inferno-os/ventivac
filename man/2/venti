@@ -1,0 +1,208 @@
+.TH VENTI 2
+.SH NAME
+Venti \- access to Venti content-addressed filestore.
+.SH SYNOPSIS
+.EX
+include "venti.m";
+venti := load Venti Venti->PATH;
+Session, Entry, Root: import venti;
+
+init:			fn();
+
+Session: adt {
+	new:		fn(fd: ref Sys->FD): ref Session;
+	read:		fn(s: self ref Session, score: Venti->Score, etype: int, maxn: int): array of byte;
+	write:	fn(s: self ref Session, etype: int, buf: array of byte): (int, Venti->Score);
+	sync:	fn(s: self ref Session): int;
+};
+
+Score: adt {
+	a: array of byte;
+	eq:		fn(a: self Score, b: Score): int;
+	text:		fn(a: self Score): string;
+	parse:	fn(s: string): (int, Score);
+	zero:		fn(): Score;
+};
+
+Entry: adt {
+	new:	fn(psize, dsize, flags: int, size: big, score: Venti->Score): ref Entry;
+	pack:	fn(e: self ref Entry): array of byte;
+	unpack:	fn(d: array of byte): ref Entry;
+};
+
+Root: adt {
+	new:	fn(name, rtype: string, score: Venti->Score, blocksize: int, prev: ref Venti->Score): ref Root;
+	unpack:	fn(d: array of byte): ref Root;
+	pack:	fn(r: self ref Root): array of byte;
+};
+.EE
+.SH DESCRIPTION
+.I Venti
+is a block storage server intended for archival applications.
+The
+.I Venti
+module provides low-level access to a Venti server.
+The module assumes that the physical connection
+to the server has already been established
+(for example, by
+.IR dial (2)).
+On a Venti server, a block is addressed by the SHA1 hash of
+the contents of that block, known as a
+.IR score ,
+and represented as a
+.B Score
+adt.
+Blocks are additionally tagged with a
+.IR type ,
+facilitating recovery in the event of corruption.
+A
+.B Session
+represents a session with a Venti server.
+.TP
+.IB s .new(\fIfd\fP)
+.B New
+performs the initial handshake with the Venti server,
+returning established
+.BR Session .
+.TP
+.IB s .read(\fIscore\fP,\ \fIetype\fP,\ \fImaxn\fP)
+.B Read
+tries to retrieve the block
+corresponding to
+.IR score ,
+and of type
+.IR etype .
+The block must be no longer than
+.I maxn
+bytes.
+.I Etype
+is conventionally one of the constants
+.BR Roottype ,
+.BR Dirtype ,
+.BR Datatype
+or
+.BR Pointertype [0-9],
+where the different
+.BR Pointertype s
+represent different depth levels within a Venti tree.
+.TP
+.IB s .write(\fIetype\fP,\ \fIbuf\fP)
+.B Write
+writes the data in
+.I buf
+to the Venti server.
+The block will be tagged with type
+.IR etype .
+It returns a tuple, say
+.RI ( ok ,\  score );
+on error,
+.I ok
+is -1, otherwise
+.I ok
+is 0 and
+.I score
+contains the Venti score for the block that has been written.
+.TP
+.IB s .sync()
+.B Sync
+tells the Venti server to make sure that all data is committed to
+active storage.
+.PP
+An
+.B Entry
+represents a hash tree stored in Venti.
+.TP
+.IB e .new(\fIpsize\fP,\ \fIdsize\fP,\ \fIflags\fP,\ \fIsize\fP,\ \fIscore\fP)
+Creates a new Entry data structure.
+.I Psize
+and
+.I dsize
+are the sizes of pointer and data blocks.
+.I Flags
+holds bits representing the type of the
+.IR Entry .
+.IP
+.I Entryactive
+tells the entry is valid.  If this bit is absent, the
+.I Entry
+should be ignored when it occurs in a Venti directory.
+.IP
+.I Entrydir
+means it represents a Venti directory.
+.IP
+.I Entrydepthmask
+shifted by
+.I Entrydepthshift
+denotes the depth of the hash tree.
+.IP
+.I Entryvarblocks
+denotes the block size is variable, overriding
+.IR dsize .
+.TP
+.IB e .pack()
+Packs an
+.I Entry
+into bytes, ready for being stored to Venti.
+The result is always
+.I Entrysize
+bytes longs.
+.TP
+.IB e .unpack(\fId\fP)
+Unpacks the
+.I Entry
+represented by
+.IR d ,
+which should be
+.I Entrysize
+bytes long.
+.PP
+.B Root
+represents the root of a file hierarchy stored in Venti.
+.TP
+.IB r .new(\fIname\fB,\ \fIrtype\fB,\ \fIscore\fB,\ \fIblocksize\fB,\ \fIprev\fB)
+Creates a new
+.I Root
+data structure.
+.I Name
+is a descriptive name for the file tree.
+.I Rtype
+denotes the type of the archive, currently only
+.I "vac"
+is known.  The maximum size in bytes of these two parameters is 128 bytes.
+.I Score
+is the score of the root directory
+.I Blocksize
+is the block block size used when writing the archive.
+.I Prev
+is the score of the previous version of the archive and may be
+.IR nil .
+.TP
+.IB r .pack()
+Packs a
+.I Root
+into bytes, ready for being stored to Venti.
+The result is always
+.I Rootsize
+bytes longs.
+.TP
+.IB r .unpack(\fId\fP)
+Unpacks the
+.I Root
+represented by
+.IR d ,
+which should be
+.I Rootsize
+bytes long.
+.SH SOURCE
+.B /appl/lib/venti.b
+.SH "SEE ALSO"
+.IR vac (2)
+.SH DIAGNOSTICS
+.B Entry.unpack
+and
+.B Root.unpack
+return nil and set the system error string when encountering badly formed data.
+.SH BUGS
+.B Root
+belongs in
+.IR vac (2).

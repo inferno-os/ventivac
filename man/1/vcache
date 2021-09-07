@@ -1,0 +1,64 @@
+.TH VCACHE 1
+.SH NAME
+vcache \- venti cache and proxy
+.SH SYNOPSIS
+.B vcache
+[
+.B -dnvw
+] [
+.B -a
+.I laddr
+] [
+.B -s
+.I size
+] [
+.B -S
+.I statsfile
+]
+.I remoteaddr
+[
+.I proxyaddr
+]
+.SH DESCRIPTION
+Vcache is a cache for venti blocks.  It acts as a venti server and serves requests using its in-memory cache, optionally a proxy server, and finally an authoritative venti server.  Only read requests are cached, and only if they returned data.  Cache blocks are replaced using a clock replacement algorithm.  If not handled by the cache, read requests go to the proxy server, falling back to the authoritative server if the data is absent at the proxy or no proxy server is used.  Read data returned by the authoritative server are written to the proxy server.  If
+.B -w
+has been specified, the proxy server is used as write through cache:  all write and sync requests from clients go to both the proxy and the authoritative server, keeping them in sync.  Requests only succeed if both servers return success, this allows reads of previously written data to succeed, even when the authoritative server is down.
+.PP
+Typically, the proxy server is running locally and the authoritative server is remote, possibly on a high latency link.  At startup, no connections to the venti server are initiated.  All clients share a single connection to the proxy server and authoritative server.  The servers are dialed when needed only, no connections are made before the first client connects.  Once connected, the proxy connection is always kept.  The connection to the authoritative server is closed when the last client disconnects.  When connections to the proxy or authoritative server fail, all clients with pending requests are disconnected.
+.TP
+.BI -a " address"
+Listen on
+.I address
+instead of the default net!*!venti.
+.TP
+.BI -s " size"
+Size of the in-memory cache in bytes.  The overhead of the score and data structures is included in the size.  Default is 0 bytes.
+.TP
+.BI -S " statsfile"
+File to serve statistics on.  Default is
+.IR /chan/vcachestats .
+Each line starts with a space-padded 14 byte number followed by a space and a textual description.
+.TP
+.B -n
+Do not check the results of the proxy and authoritative server.  By default, vcache verifies the returned data and scores.
+.TP
+.B -w
+Use the proxy server as write-through cache.
+.TP
+.B -d
+Print (lots of) debug messages.
+.TP
+.B -v
+Be more verbose, prints new and closed connections and read/write errors.
+.SH SOURCE
+.B /appl/cmd/vcache.b
+.SH SEE ALSO
+.IR venti (1),
+.IR vacget (1),
+.IR venti (2),
+.IR vacfs (4),
+.IR ventisrv (8)
+.SH BUGS
+The in-memory cache needs a better replacement policy, with more efficient implementation.
+.br
+When a connection to a proxy or authoritative server breaks, all clients with pending requests are closed down, open requests are not responded to.  Sending venti error responses for all open requests might be nicer.

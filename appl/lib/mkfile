@@ -1,0 +1,19 @@
+<../../mkconfig
+
+TARG=\
+	vac.dis\
+	venti.dis\
+	rabin.dis\
+
+MODULES=
+
+SYSMODULES= \
+	sys.m\
+	bufio.m\
+	rabin.m\
+	vac.m\
+	venti.m\
+
+DISBIN=$ROOT/dis/lib
+
+<$ROOT/mkfiles/mkdis

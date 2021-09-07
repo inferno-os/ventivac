@@ -1,0 +1,180 @@
+.TH VENTI 1
+.SH NAME
+venti/read, venti/write, venti/sync, venti/ping, venti/get, venti/put, venti/copy, venti/parse \- venti utilities
+.SH SYNOPSIS
+.B venti/read
+[
+.B -d
+] [
+.B -a
+.I addr
+]
+.I type
+.I score
+.br
+.B venti/write
+[
+.B -d
+] [
+.B -a
+.I addr
+] [
+.B -t
+.I type
+]
+.br
+.B venti/sync
+[
+.B -d
+] [
+.B -a
+.I addr
+]
+.br
+.B venti/ping
+[
+.B -d
+] [
+.B -a
+.I addr
+] [
+.B -n
+.I count
+]
+.br
+.B venti/put
+[
+.B -dr
+] [
+.B -a
+.I addr
+] [
+.B -b
+.I blocksize
+]
+.br
+.B venti/get
+[
+.B -d
+] [
+.B -a
+.I addr
+]
+.I [entry:]score
+.br
+.B venti/copy
+[
+.B -df
+]
+.I srcaddr
+.I dstaddr
+.I [tag:]score
+.br
+.B venti/parse
+[
+.I type
+]
+.SH DESCRIPTION
+.I Venti/read
+reads the block
+.IR score / type
+from venti and writes it to standard output.
+.PP
+.I Venti/write
+reads data from standard input and writes it as a single block to venti.  The type is
+.I 13
+(for data) by default, but can be changed with
+.BR -t .
+.PP
+.I Venti/sync 
+sends a sync messages to a venti server.  When it returns, the venti server has flushed its data to stable storage.
+.PP
+.I Venti/ping
+pings a venti server.  Option
+.B -n
+sets the number of ping messages to send.  The round trip time for each message is printed.
+.PP
+.I Venti/put
+reads data from standard input and writes it to venti as a hash tree, thus large amounts of data can be written.  When done, the score of the resulting venti entry is printed.
+.PP
+.I Venti/get
+reads the data from the venti entry referenced by
+.I score
+and writes it to standard output.
+.PP
+.I Venti/copy
+copies the file tree referenced by
+.I tag:score
+from 
+.I srcaddr
+to
+.IR dstaddr .
+.I Tag
+can be either
+.I vac
+or
+.IR entry .
+.PP
+.I Venti/parse
+parses and prints the data structure it reads from standard input.
+.I Type
+is one of:
+.IR root , entry , entries , direntry , metablock , metablocks , pointers, rpointers .
+For the types
+.IR root ,
+.I entry
+and
+.I entries
+the command to descend further down the tree is printed.  If the type is missing it is guessed based on its contents.
+.PP
+The options:
+.TP
+.B -d
+Print debug messages.
+.TP
+.B -f
+Only copy score that
+.I dstaddr
+does not yet have.  When a score is present, all scores it references are assumed to be present as well.
+Only for
+.IR venti/copy .
+.TP
+.BI -a " address"
+Dial
+.I address
+instead of the default venti server.
+.TP
+.BI -b " blocksize"
+Use blocks with
+.I blocksize
+bytes instead of the default 8192 byte blocks.  Only for
+.IR venti/put .
+.TP
+.B -r
+Use Rabin fingerprinting to determine block bounderies.
+.TP
+.BI -n " count"
+Send
+.I count
+pings to the venti server.  The default is three.  When set to zero,
+.I venti/ping
+pings until interrupted.
+.SH SOURCE
+.B /appl/cmd/venti/read.b
+.br
+.B /appl/cmd/venti/write.b
+.br
+.B /appl/cmd/venti/sync.b
+.br
+.B /appl/cmd/venti/ping.b
+.br
+.B /appl/cmd/venti/get.b
+.br
+.B /appl/cmd/venti/put.b
+.br
+.B /appl/cmd/venti/parse.b
+.SH SEE ALSO
+.IR vcache (1),
+.IR venti (2),
+.IR vacfs (4),
+.IR ventisrv (8)

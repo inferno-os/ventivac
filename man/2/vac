@@ -1,0 +1,363 @@
+.TH VAC 2
+.SH NAME
+vac \- read/write venti archives
+.SH SYNOPSIS
+.EX
+include "vac.m";
+vac := load Vac Vac->PATH;
+Direntry: import vac;
+Source, Vacdir, Vacfile: import vac;
+File, Sink, MSink: import vac;
+
+init:		fn();
+
+Direntry: adt {
+	new:	fn(): ref Direntry;
+	mk:	fn(d: Sys->Dir): ref Direntry;
+	mkdir:	fn(de: self ref Direntry): ref Sys->Dir;
+	pack:	fn(de: self ref Direntry): array of byte;
+	unpack:	fn(d: array of byte): ref Direntry;
+};
+
+Source: adt {
+	new:	fn(s: ref Venti->Session, e: ref Venti->Entry): ref Source;
+	get:	fn(s: self ref Source, i: big, d: array of byte): int;
+	oget:	fn(s: self ref Source, offset: big): array of byte;
+};
+
+Vacfile: adt {
+	mk:	fn(s: ref Source): ref Vacfile;
+	new:	fn(session: ref Venti->Session, e: ref Venti->Entry): ref Vacfile;
+	read:	fn(v: self ref Vacfile, d: array of byte, n: int): int;
+	seek:	fn(v: self ref Vacfile, offset: big): big;
+	pread:	fn(v: self ref Vacfile, d: array of byte, n: int, offset: big): int;
+};
+
+Vacdir: adt {
+	mk:	fn(vf: ref Vacfile, ms: ref Source): ref Vacdir;
+	new:	fn(session: ref Venti->Session, e, me: ref Venti->Entry): ref Vacdir;
+	walk:	fn(v: self ref Vacdir, elem: string): ref Direntry;
+	open:	fn(v: self ref Vacdir, de: ref Direntry):
+			(ref Venti->Entry, ref Venti->Entry);
+	readdir:	fn(v: self ref Vacdir):
+				(int, ref Direntry);
+	rewind:	fn(v: self ref Vacdir);
+};
+
+File: adt {
+	new:	fn(s: ref Venti->Session, dtype, dsize, varblocks: int): ref File;
+	write:	fn(f: self ref File, d: array of byte): int;
+	finish:	fn(f: self ref File): ref Venti->Entry;
+	mkstate:	fn(session: ref Venti->Session, e: ref Venti->Entry, varblocks: int): ref File;
+};
+
+Sink: adt {
+	new:	fn(s: ref Venti->Session, dsize: int): ref Sink;
+	add:	fn(m: self ref Sink, e: ref Venti->Entry): int;
+	finish:	fn(m: self ref Sink): ref Venti->Entry;
+};
+
+MSink: adt {
+	new:	fn(s: ref Venti->Session, dsize: int): ref MSink;
+	add:	fn(m: self ref MSink, de: ref Direntry): int;
+	finish:	fn(m: self ref MSink): ref Venti->Entry;
+};
+
+blocksread, blockswritten, bytesread, byteswritten: big;
+
+openroot:
+	fn(session: ref Venti->Session, score: Venti->Score):
+		(ref Vacdir, ref Direntry, string);
+readscore:
+	fn(path: string):
+		(string, ref Venti->Score, string);
+.EE
+.SH DESCRIPTION
+.I Vac
+is a module for reading and writing venti archives.
+.B Init
+initialises the module and must be called before any other function.
+Adt's
+.IR Source ,
+.I Vacfile
+and
+.I Vacdir
+provide functions for reading venti archives, along with
+.B openroot
+and
+.BR readscore .
+Adt's
+.IR File ,
+.I Sink
+and
+.I MSink 
+facilitate writing archives.
+.PP
+A
+.B Direntry
+is used for both writing and reading and is the vac equivalent of a
+.BR Sys->Dir .
+.TP
+.IB Direntry .new()
+Returns a new, empty
+.BR Direntry .
+.TP
+.IB Direntry .mk(\fIdir\fP)
+Returns the
+.B Direntry
+equivalent of
+.IR dir .
+.TP
+.IB d .mkdir()
+Returns the
+.B Dir
+equivalent of
+.IR d .
+.TP
+.IB d .pack()
+Packs
+.I d
+into
+.I Direntrysize
+bytes.
+.TP
+.IB Direntry .unpack(\fIdata\fP)
+Unpacks
+.I data
+into a
+.BR Direntry .
+
+.PP
+.B Source
+holds a
+.B Venti->Entry
+from which
+whole blocks of data from the hash tree are read from.
+The difference with a plain
+entry
+is that it has a
+.B Venti->Session
+associated with it.
+.TP
+.IB s .new(\fIsession\fP,\ \fIentry\fP)
+Create a new
+.B Source
+from the
+.I session
+and the
+.IR Entry .
+Always succeeds.
+.TP
+.IB s .get(\fIindex\fP,\ \fIdata\fP)
+Read a block from the hash tree into buffer
+.IR data .
+.I Index
+denotes which data block to read, considering only data blocks (not pointer blocks).  The first data block is 0.
+This function performs zero-extension and only works on entries that do not have the
+.I Entryvarblocks
+bit set.
+.TP
+.IB s .oget(\fIoffset\fP)
+Read a block from the hash tree starting at
+.I offset .
+The data returned has been zero-extended.
+This functions also works on
+.B Entries
+with the
+.I Entryvarblocks
+bit set.
+
+.PP
+.B Vacfile
+is a
+.B Source
+with with an offset associated with it.  It provides the standard functions
+.BR read ,
+.B pread
+and
+.BR seek .
+A
+.B Vacfile
+can be created by
+.BI Vacfile.mk(\fIsource\fP)
+and
+.BI Vacfile.new(\fIsession\fP,\ \fIentry\fP) .
+These functions always succeed.
+
+.PP
+.B Vacdir
+represents a directory stored in a venti archive.  A venti directory is stored in Venti as two hash trees: one containing Entries representing the (data) contents of files and one containing all meta-information (direntries) for those files.  A file in a directory is represented as a
+.IR Direntry .
+.TP
+.IB vd .mk(\fIvacfile\fP,\ \fImetasource\fP)
+Open a venti directory.
+.I Vacfile
+should contain Entries,
+.I metasource
+should contain Direntries.
+.TP
+.IB vd .new(\fIsession\fP,\ \fIentry\fP,\ \fImetaentry\fP)
+Open a venti directory from a
+.I entry
+and
+.IR metaentry ,
+such as those as returned by 
+.IR Vacdir.open .
+.TP
+.IB vd .walk(\fIelem\fP)
+Return the
+.B Direntry
+representing the file
+.IR elem .
+.B Nil
+is returned when the file does not exist and the system error string set.
+.TP
+.IB vd .open(\fIdirentry\fP)
+`Open' the file represented by
+.IR direntry ,
+by returning its
+entry and metaentry.
+The metaentry (second element of the tuple) is
+nil
+for files and
+non-nil
+for directories.
+.TP
+.IB vd .readdir()
+Read files in a directory.  The number of direntries returned depends on the block size of the underlying archive.
+The first element of the tuple has the number of direntries returned and is < 0 for errors, and 0 when all files have been returned.  
+.TP
+.IB vd .rewind()
+Rewind the directory offset to 0.  Subsequent reads again return files.
+
+.PP
+A
+.B File
+is used for writing files to Venti as hash trees, eventually resulting in an
+.B Entry.
+.TP
+.IB f .new(\fIsession\fP,\ \fIdtype\fP,\ \fIdsize\fP,\ \fIvarblocks\fP)
+Start a new, empty file.
+.I Dtype
+is the type of the data being written, typically
+.I Venti->Datatype
+for a regular file.
+.I Dsize
+is the data and pointer block size.  Constant
+.I Dsize
+is currently defined to 8192.
+.I Varblocks
+denotes whether the hash tree should be considered to have a variable block size.
+If it is non-zero,
+.I dsize
+has no meaning for the data block size and is only used for the pointer block size.
+.TP
+.IB f .write(\fIdata\fP)
+Write
+.I data
+to the hash tree.
+The data is flushed to venti immediately and considered to be a single data block in the hash tree.  Zero-truncation is performed on it.
+On failure -1 is returned, on success 0 is returned.
+Pointer blocks that have filled up by this write are flushed as well.
+.TP
+.IB f .finish()
+Flush all remaining pointer blocks and the top-level
+.B Entry
+to Venti and return the entry.
+.TP
+.IB f .mkstate(\fIsession\fP,\ \fIentry\fP,\ \fIvarblocks\fP)
+Initialise a
+.B File
+from an existing
+.BR Entry .
+This can be used to append data to an already existing file.
+
+.PP
+A
+.B Sink
+is used to write venti directories.
+It consists of a
+.B File
+to which
+.B Entries
+can be added.  Note that
+.B Direntries
+are written using an
+.BR MSink .
+Data is only written to the
+.B File
+when a data block has been filled with entries.
+.TP
+.IB s .new(\fIsession\fP,\ \fIdsize\fP)
+Make a new, empty directory.  The size of the blocks in which entries are stored is
+.IR dsize .
+.TP
+.IB s .add(\fIentry\fP)
+Add an entry to the directory.
+If a block is filled, it is flushed to Venti.
+.TP
+.IB s .finish()
+Flush the underlying file and return the
+.B Entry
+representing the directory.
+
+.PP
+An
+.B MSink
+is used to write the
+.I Direntries
+of a venti directory.  It behaves identical to a
+.BR Sink ,
+with the difference that function
+.B add
+writes a
+.B Direntry
+by extracting the
+.B Entry
+from it,
+and another
+.B Entry
+for the meta-information if the
+.B Direntry
+represents a directory.
+
+.PP
+The variables
+.IR blocksread ,
+.IR blockswritten ,
+.I bytesread
+and
+.I byteswritten
+are kept up to date during module use.
+They contain the total number of blocks and bytes read from and
+written to the venti server.  Venti protocol overhead is ignored,
+only the message payloads are accounted for.
+.PP
+.B Readscore
+parses a score from the file represented by
+.IR path .
+The returned tuple contains the type of the score (e.g.
+.I vac
+if the score references a
+.B Root
+block), the second element is the parsed score itself.  The third element describes an error if it is not
+.IR nil .
+.PP
+.B Openroot
+opens the top-level directory of a vac archive by the
+.I score
+of its
+.B Root
+block.
+The tuple returned contains the 
+.BR Vacdir ,
+and the
+.B Direntry
+containing information about the root directory.  The third element describes an error if it is not
+.RI nil .
+.SH SOURCE
+.B /appl/lib/vac.b
+.SH "SEE ALSO"
+.IR venti (2)
+.SH DIAGNOSTICS
+The functions unpacking data structures return nil for badly formed data, and set the system error string.

@@ -1,0 +1,11 @@
+NPROC = 1
+FILES = \
+	ventisrv-fileformat.ps\
+
+all:V: $FILES
+
+%.ps:D:	%.ms
+	cat $stem.ms | tbl | troff -ms | lp -dstdout > $target
+
+%.pdf: %.ps
+	ps2pdf <$stem.ps >$stem.pdf

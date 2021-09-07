@@ -1,0 +1,10 @@
+things left to do (maybe):
+- some more testing
+- look at memory requirements for vacfs and its qid caching
+- careful hunt for bugs in appl/lib/vac.b, perhaps also appl/lib/venti.b.
+
+some more ideas related to ventivac:
+
+- a venti write buffering proxy.  it should return the score written immediately, and write it to a remote server in the background.  this makes synchronous writes on a low-latency link look fast.  a sync would wait until all writes have finished, so there is no risk of losing data.
+- a better cache replacement algorithm for vcache could be implemented.  more testing of the performance of the current clock algorithm should be done first.
+- a venti-proxy that does read-ahead on the raw venti blocks.  9p-level read-ahead will help for e.g. vacfs.  for vacput with writing compared to an existing venti archive, a 9p-level read-ahead proxy would not help, but this would.  questionable whether it's worth the trouble though.
